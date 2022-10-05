@@ -1,8 +1,13 @@
 const express=require('express'),
     morgan=require('morgan'),
     fs=require('fs'),
-    path=require('path');
+    path=require('path'),
+    bodyParser=require('body-parser'),
+    uuid=require('uuid');
+
 const app=express();
+
+app.use(bodyParser.json());
 
 const accessLogStream=fs.createWriteStream(path.join(__dirname, 'log.txt'),{flags:'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
