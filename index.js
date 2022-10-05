@@ -65,9 +65,16 @@ app.get('/movies',(req,res)=>{
     res.json(movies);
 });
 
-app.get('/',(req,res)=>{
-    res.send('Welcome to my movie api!');
-});
+//READ: get data of a single movie
+app.get('/movies/:title', (req, res)=> {
+    res.json(movies.find(movie => movie.Title === req.params.title));
+})
+
+//READ: get data about a genre by name
+app.get('/movie/')
+
+
+
 
 //serve files in public ordner
 app.use(express.static('public'));
