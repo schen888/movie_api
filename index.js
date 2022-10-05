@@ -67,7 +67,13 @@ app.get('/movies',(req,res)=>{
 
 //READ: get data of a single movie
 app.get('/movies/:title', (req, res)=> {
-    res.json(movies.find(movie => movie.Title === req.params.title));
+    const movie = movies.find(movie => movie.Title === req.params.title);
+    if (movie) {
+        res.status(200).json(movie);
+    } else {
+        res.status(400).send('Movie not found.');
+    }
+    
 })
 
 //READ: get data about a genre by name

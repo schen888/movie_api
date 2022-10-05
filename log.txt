@@ -18,3 +18,4 @@
 ::1 - - [05/Oct/2022:20:48:49 +0000] "GET /movies/genre/Sci-Fi HTTP/1.1" 500 29 "-" "PostmanRuntime/7.29.2"
 ::1 - - [05/Oct/2022:20:53:53 +0000] "GET /movies/genre/Sci-Fi HTTP/1.1" 500 29 "-" "PostmanRuntime/7.29.2"
 ::1 - - [05/Oct/2022:20:54:11 +0000] "GET /movies/Iron%20Man HTTP/1.1" 200 410 "-" "PostmanRuntime/7.29.2"
+::1 - - [05/Oct/2022:20:55:56 +0000] "GET /movies/genre/Sci-Fi HTTP/1.1" 200 53 "-" "PostmanRuntime/7.29.2"
