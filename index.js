@@ -60,6 +60,7 @@ let movies= [
     }    
 ];
 
+//READ:get full movie list
 app.get('/movies',(req,res)=>{
     res.json(movies);
 });
@@ -68,6 +69,7 @@ app.get('/',(req,res)=>{
     res.send('Welcome to my movie api!');
 });
 
+//serve files in public ordner
 app.use(express.static('public'));
 
 app.use((err,req,res,next)=>{
