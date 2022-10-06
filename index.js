@@ -157,6 +157,19 @@ app.delete('/users/:id/favmovies/:title', (req, res)=>{
     }
 });
 
+//Delete an user account
+app.delete('/users/:id', (req, res)=>{
+    const { id } = req.params;
+    let user=users.find(user => user.id == id);
+    if (user) {
+        users = users.filter(user => user.id != id);
+        res.status(200).send(`User with ID-No. ${id} has been deregistered.`);
+        }
+    else {
+        res.status(404).send(`User with ID-No. ${id} not found.`);
+    }
+});
+
 //serve files in public ordner
 app.use(express.static('public'));
 
