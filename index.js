@@ -77,16 +77,26 @@ app.get('/movies/:title', (req, res)=> {
 })
 
 //READ: get data about a genre by name
-app.get('/movies/genre/:genreName', (req, res)=>{
-    //const { genreName } = req.params;
-    const genre = movies.find(movie => movie.Genre.Name === req.params.genreName).Genre;
-    if (genre) {
+app.get('/movies/genres/:genreName', (req, res)=>{
+    const movie = movies.find(movie => movie.Genre.Name === req.params.genreName);
+    if (movie) {
+        const genre=movie.Genre;
         res.status(200).json(genre);
     } else {
-        res.status(400).send('Genre not found.');
+        res.status(404).send('Genre not found.');
     }
-})
+});
 
+//READ: get data about a director by name
+app.get('/movies/directors/:name', (req, res)=>{
+    const movie = movies.find(movie => movie.Director.Name === req.params.name);
+    if (movie) {
+        const director=movie.Director;
+        res.status(200).json(director);
+    } else {
+        res.status(404).send('Director not found.');
+    }
+});
 
 
 
