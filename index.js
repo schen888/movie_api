@@ -144,8 +144,17 @@ app.post('/users/:id/favmovies', (req, res)=>{
 });
 
 //Delete a movie from the favorite movie list
-app.delete('/users/:id/favmovies/', (req, res)=>{
-
+app.delete('/users/:id/favmovies/:title', (req, res)=>{
+    const { id, title } = req.params;
+    let user=users.find(user => user.id == id);
+    if (user) {
+        user.favoriteMovies = user.favoriteMovies.filter(favMovie => favMovie.Title !== title);
+        res.status(200).send(`${title} has been removed from your favorite movie list.`);
+        }
+        
+    else {
+        res.status(404).send(`User with ID-No. ${id} not found.`);
+    }
 });
 
 //serve files in public ordner
