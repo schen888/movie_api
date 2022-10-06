@@ -4,10 +4,118 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Documentaion</title>
+        <style>
+            caption {
+                font-size: 22px;
+                font-weight: 700;
+            }
+            table, th, td {
+                border: 1px solid black;
+            }
+            .example {
+                color: blue;
+            }
+        </style>
     </head>
-        <header>Movie API</header>
+        <header>Movie API Documentation</header>
         <body>
-            <P>This is a movie API, which contains movie description, genre, director, image URL.</P>
+            <P>This is a movie API, which contains movie title, description, genre, director, imageURL.</P>
+            <table>
+                <caption>API Endpoints</caption>
+                <tr>
+                    <th>Requests</th>
+                    <th>URL</th>
+                    <th>HTTP Method</th>
+                    <th>Request body data format</th>
+                    <th>Response body data format</th>
+                </tr>
+                <tr>
+                    <td>Get a list of all movies</td>
+                    <td>/movies</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>A JSON object holding data of all the movies.</td>
+                </tr>
+                <tr>
+                    <td>Get all information about one sigle movie by title</td>
+                    <td>/movies/[Title]</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>A JSON object holding data about a single movie, containing title, description, genre, director, imageURL and feutured or not. Example:
+                        <div class="example">    
+                            {
+                                "Title":"The Fellowship of the Ring",
+                                "Description": "Teleplay based on the of J.R.R. Tolkien's novel 'The Fellowship of the Ring'.",
+                                "Genre":
+                                    {
+                                        "Name": "Fantasy",
+                                        "Description": "Description1"
+                                    },
+                                "Director":
+                                    {
+                                        "Name": "Peter Jackson",
+                                        "Bio": "Bio PJ",
+                                        "Birth": "Birth PJ"
+                                    },
+                                "imageURL":"https://m.media-amazon.com/images/M/MV5BZTQ4YTA1YmEtNWY1Yy00ODA2LWI2MGYtZGY2ZTgzYjEzMDZjXkEyXkFqcGdeQXVyNTE1MDE2MzY@._V1_SX300.jpg"
+                            }
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Get data about a genre by genre name</td>
+                    <td>/movies/genre/[Name]</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>A JSON object holding data about a single genre, containing name and description.</td>
+                </tr>
+                <tr>
+                    <td>Get data about a director by name</td>
+                    <td>/movies/directors/[Name]</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>A JSON object holding data about a single director, containing name, bio and birth year.</td>
+                </tr>
+                <tr>
+                    <td>Creat a new user</td>
+                    <td>/users</td>
+                    <td>POST</td>
+                    <td>A JSON object holding data about the new user, containing name, id and favoriteMovies. Example:
+                        <div class="example">{"name":"Tom Hanks","favoriteMovies": []}</div>
+                    </td>
+                    <td>A text message indicating whether the user has been registered.</td>
+                </tr>
+                <tr>
+                    <td>Update a user's name</td>
+                    <td>/users/[ID]</td>
+                    <td>PUT</td>
+                    <td>None</td>
+                    <td>A text message indicating the user's name has been updated.</td>
+                </tr>
+                <tr>
+                    <td>Update a user's favoriteMovies</td>
+                    <td>/users/[ID]/favmovies</td>
+                    <td>POST</td>
+                    <td>A JSON object holding data about a new favorite movie of the user, containing title. Example:
+                        <div class="example">{"Title": "Harry Potter"}</div>
+                    </td>
+                    <td>A text message indicating the movie has been added to the favorite moive list.</td>
+                </tr>
+                <tr>
+                    <td>Delete a movie from the favoriteMovies</td>
+                    <td>/users/[ID]/favmovies/[Title]</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td>A text message indicating a movie has been deleted from the favorite movie list.</td>
+                </tr>
+                <tr>
+                    <td>Delete an user's data</td>
+                    <td>/users/[ID]</td>
+                    <td>DELETE</td>
+                    <td>None</td>
+                    <td>A text message indicating the user's data has been removed.</td>
+                </tr>
+            </table>
         </body>
     <body>
 
