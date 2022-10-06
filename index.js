@@ -98,7 +98,18 @@ app.get('/movies/directors/:name', (req, res)=>{
     }
 });
 
-
+//UPDATE: update a user's name
+app.put('/users/:id', (req, res)=>{
+    const {id} = req.params;
+    const updatedUser =req.body;
+    let user=users.find(user => user.id == id);
+    if (user) {
+        user.name=updatedUser.name;
+        res.status(200).send(`Username has been updated as ${user.name}.`);
+    } else {
+        res.status(404).send(`ID: ${id}  is not found.`);
+    }
+});
 
 //serve files in public ordner
 app.use(express.static('public'));
