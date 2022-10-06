@@ -111,6 +111,43 @@ app.put('/users/:id', (req, res)=>{
     }
 });
 
+//CREAT: creat new user
+app.post('/users', (req,res)=>{
+    const newUser=req.body;
+    if(newUser.name) {
+        newUser.id=uuid.v4();
+        users.push(newUser);
+        res.status(201).send(`User ${newUser.name} has registered successfully with ID No. ${newUser.id}.`);
+    } else {
+        res.status(400).send('Users need names.');
+    }
+});
+
+//Update: update a user's favorite movie list
+app.post('/users/:id/favmovies', (req, res)=>{
+    const {id} = req.params;
+    let user=users.find(user => user.id == id);
+    const newFavMovie=req.body;
+    if (user) {
+        if (newFavMovie.Title){
+            user.favoriteMovies.push(newFavMovie);
+            res.status(200).send(`${newFavMovie.Title} has been added to your favorite movie list.`);
+            res.status(200).json(user.favoriteMovies);
+        } else {
+            res.status(400).send('Favorite movie need a title.');
+        }
+        
+    } else {
+        res.status(404).send(`User with ID-No. ${id} not found.`);
+    }
+
+});
+
+//Delete a movie from the favorite movie list
+app.delete('/users/:id/favmovies/', (req, res)=>{
+
+});
+
 //serve files in public ordner
 app.use(express.static('public'));
 
