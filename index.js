@@ -3,64 +3,19 @@ const express=require('express'),
     fs=require('fs'),
     path=require('path'),
     bodyParser=require('body-parser'),
-    uuid=require('uuid');
+    mongoose=require('mongoose'),
+    Models=require('./models.js');
 
 const app=express();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const accessLogStream=fs.createWriteStream(path.join(__dirname, 'log.txt'),{flags:'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
 
-let users=[
-    {
-        id: 1,
-        name: 'Paul Smith',
-        favoriteMovies: []
-    },
-    {
-        id: 2,
-        name: 'Ann Schneider',
-        favoriteMovies: ['Iron Man']
-    }
-]
-
-let movies= [
-    {
-        "Title":"The Fellowship of the Ring",
-        "Description": "Teleplay based on the of J.R.R. Tolkien's novel 'The Fellowship of the Ring'.",
-        "Genre":
-            {
-                "Name": "Fantasy",
-                "Description": "Description1"
-            },
-        "Director":
-            {
-                "Name": "Peter Jackson",
-                "Bio": "Bio PJ",
-                "Birth": "Birth PJ",
-                "Death": ""
-            },
-        "imageURL":"https://m.media-amazon.com/images/M/MV5BZTQ4YTA1YmEtNWY1Yy00ODA2LWI2MGYtZGY2ZTgzYjEzMDZjXkEyXkFqcGdeQXVyNTE1MDE2MzY@._V1_SX300.jpg"
-    },
-    {
-        "Title":"Iron Man",
-        "Description":"After being heldcaptive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
-        "Genre":
-            {
-                "Name": "Sci-Fi",
-                "Description": "Descpription sci-fi"
-            },
-        "Director":
-            {
-                "Name": "Jon Favreau",
-                "Bio" : "Bio JF",
-                "Birth": "Birth JF",
-                "Death": ""
-            },
-        "imageURL":"https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg"
-    }    
-];
+const movies=Models.Movie;
+const users=Models.User;
 
 //READ:get full movie list
 app.get('/movies',(req,res)=>{
@@ -183,3 +138,56 @@ app.use((err,req,res,next)=>{
 app.listen(8080,()=>{
     console.log('The App is listening on port 8080.');
 });
+
+
+/*
+let users=[
+    {
+        id: 1,
+        name: 'Paul Smith',
+        favoriteMovies: []
+    },
+    {
+        id: 2,
+        name: 'Ann Schneider',
+        favoriteMovies: ['Iron Man']
+    }
+]
+
+let movies= [
+    {
+        "Title":"The Fellowship of the Ring",
+        "Description": "Teleplay based on the of J.R.R. Tolkien's novel 'The Fellowship of the Ring'.",
+        "Genre":
+            {
+                "Name": "Fantasy",
+                "Description": "Description1"
+            },
+        "Director":
+            {
+                "Name": "Peter Jackson",
+                "Bio": "Bio PJ",
+                "Birth": "Birth PJ",
+                "Death": ""
+            },
+        "imageURL":"https://m.media-amazon.com/images/M/MV5BZTQ4YTA1YmEtNWY1Yy00ODA2LWI2MGYtZGY2ZTgzYjEzMDZjXkEyXkFqcGdeQXVyNTE1MDE2MzY@._V1_SX300.jpg"
+    },
+    {
+        "Title":"Iron Man",
+        "Description":"After being heldcaptive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
+        "Genre":
+            {
+                "Name": "Sci-Fi",
+                "Description": "Descpription sci-fi"
+            },
+        "Director":
+            {
+                "Name": "Jon Favreau",
+                "Bio" : "Bio JF",
+                "Birth": "Birth JF",
+                "Death": ""
+            },
+        "imageURL":"https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg"
+    }    
+];
+*/
