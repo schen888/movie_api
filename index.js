@@ -38,7 +38,8 @@ let movies= [
             {
                 "Name": "Peter Jackson",
                 "Bio": "Bio PJ",
-                "Birth": "Birth PJ"
+                "Birth": "Birth PJ",
+                "Death": ""
             },
         "imageURL":"https://m.media-amazon.com/images/M/MV5BZTQ4YTA1YmEtNWY1Yy00ODA2LWI2MGYtZGY2ZTgzYjEzMDZjXkEyXkFqcGdeQXVyNTE1MDE2MzY@._V1_SX300.jpg"
     },
@@ -54,7 +55,8 @@ let movies= [
             {
                 "Name": "Jon Favreau",
                 "Bio" : "Bio JF",
-                "Birth": "Birth JF"
+                "Birth": "Birth JF",
+                "Death": ""
             },
         "imageURL":"https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg"
     }    
@@ -132,7 +134,7 @@ app.post('/users/:id/favmovies', (req, res)=>{
         if (newFavMovie.Title){
             user.favoriteMovies.push(newFavMovie);
             res.status(200).send(`${newFavMovie.Title} has been added to your favorite movie list.`);
-            res.status(200).json(user.favoriteMovies);
+            res.status(200).json(user.favoriteMovies);// here it does not send the json.
         } else {
             res.status(400).send('Favorite movie need a title.');
         }
