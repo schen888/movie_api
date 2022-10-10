@@ -136,7 +136,7 @@ app.post('/users', (req, res) => {
       });
   });
 
-//UPDATE: update a user's name
+//UPDATE: update a user's info
 app.post('/users/:username', (req, res) => {
     users.findOneAndUpdate({ Username: req.params.username }, { $set:
       {
