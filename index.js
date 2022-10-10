@@ -109,9 +109,35 @@ app.get('/users/:username', (req, res)=> {
     });
 })
 
+//creat a new user
+app.post('/users', (req, res) => {
+    users.findOne({ Username: req.body.Username })
+      .then((user) => {
+        if (user) {
+          return res.status(400).send(req.body.Username + 'already exists.');
+        } else {
+          users
+            .create({
+              Username: req.body.Username,
+              Password: req.body.Password,
+              Email: req.body.Email,
+              Birthday: req.body.Birthday
+            })
+            .then((user) =>{res.status(201).json(user) })
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
+  });
 
 //UPDATE: update a user's name
-app.put('/users/:username', (req, res) => {
+app.post('/users/:username', (req, res) => {
     users.findOneAndUpdate({ Username: req.params.username }, { $set:
       {
         Username: req.body.Username,
@@ -120,7 +146,7 @@ app.put('/users/:username', (req, res) => {
         Birthday: req.body.Birthday
       }
     },
-    { new: true }, // This line makes sure that the updated document is returned
+    { new: true },
     (err, updatedUser) => {
       if(err) {
         console.error(err);
@@ -131,69 +157,53 @@ app.put('/users/:username', (req, res) => {
     });
   });
 
+// Add a movie to a user's list of favorites
+app.put('/users/:username/movies/:movieid', (req, res) => {
+    users.findOneAndUpdate({ Username: req.params.username }, {
+       $addToSet: { FavoriteMovies: req.params.movieid }
+     },
+     { new: true },
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.status(200).json(updatedUser);
+      }
+    });
+  });
 
-/*
-
-//CREAT: creat new user
-app.post('/users', (req,res)=>{
-    const newUser=req.body;
-    if(newUser.name) {
-        newUser.id=uuid.v4();
-        users.push(newUser);
-        res.status(201).send(`User ${newUser.name} has registered successfully with ID No. ${newUser.id}.`);
-    } else {
-        res.status(400).send('Users need names.');
-    }
-});
-
-//Update: update a user's favorite movie list
-app.post('/users/:id/favmovies', (req, res)=>{
-    const {id} = req.params;
-    let user=users.find(user => user.id == id);
-    const newFavMovie=req.body;
-    if (user) {
-        if (newFavMovie.Title){
-            user.favoriteMovies.push(newFavMovie);
-            res.status(200).send(`${newFavMovie.Title} has been added to your favorite movie list.`);
-            res.status(200).json(user.favoriteMovies);// here it does not send the json.
-        } else {
-            res.status(400).send('Favorite movie need a title.');
-        }
-        
-    } else {
-        res.status(404).send(`User with ID-No. ${id} not found.`);
-    }
-
-});
-
-//Delete a movie from the favorite movie list
-app.delete('/users/:id/favmovies/:title', (req, res)=>{
-    const { id, title } = req.params;
-    let user=users.find(user => user.id == id);
-    if (user) {
-        user.favoriteMovies = user.favoriteMovies.filter(favMovie => favMovie.Title !== title);
-        res.status(200).send(`${title} has been removed from your favorite movie list.`);
-        }
-        
-    else {
-        res.status(404).send(`User with ID-No. ${id} not found.`);
-    }
-});
+// Delete a movie from a user's list of favorites
+app.delete('/users/:username/movies/:movieid', (req, res) => {
+    users.findOneAndUpdate({ Username: req.params.username }, {
+       $pull: { FavoriteMovies: req.params.movieid }
+     },
+     { new: true },
+    (err, updatedUser) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      } else {
+        res.status(200).json(updatedUser);
+      }
+    });
+  });
 
 //Delete an user account
-app.delete('/users/:id', (req, res)=>{
-    const { id } = req.params;
-    let user=users.find(user => user.id == id);
-    if (user) {
-        users = users.filter(user => user.id != id);
-        res.status(200).send(`User with ID-No. ${id} has been deregistered.`);
+app.delete('/users/:username', (req, res)=>{
+    users.findOneAndRemove({Username: req.params.username})
+    .then((user)=>{
+        if(!user){
+            res.status(404).send(`Username "${req.params.username}" not found.`);
+        } else {
+            res.status(200).send(`User "${req.params.username}" is deleted.`);
         }
-    else {
-        res.status(404).send(`User with ID-No. ${id} not found.`);
-    }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).send('Error: ' + error);
+      });
 });
-*/
-
 
 //serve files in public ordner
 app.use(express.static('public'));
@@ -206,56 +216,3 @@ app.use((err,req,res,next)=>{
 app.listen(8080,()=>{
     console.log('The App is listening on port 8080.');
 });
-
-
-/*
-let users=[
-    {
-        id: 1,
-        name: 'Paul Smith',
-        favoriteMovies: []
-    },
-    {
-        id: 2,
-        name: 'Ann Schneider',
-        favoriteMovies: ['Iron Man']
-    }
-]
-
-let movies= [
-    {
-        "Title":"The Fellowship of the Ring",
-        "Description": "Teleplay based on the of J.R.R. Tolkien's novel 'The Fellowship of the Ring'.",
-        "Genre":
-            {
-                "Name": "Fantasy",
-                "Description": "Description1"
-            },
-        "Director":
-            {
-                "Name": "Peter Jackson",
-                "Bio": "Bio PJ",
-                "Birth": "Birth PJ",
-                "Death": ""
-            },
-        "imageURL":"https://m.media-amazon.com/images/M/MV5BZTQ4YTA1YmEtNWY1Yy00ODA2LWI2MGYtZGY2ZTgzYjEzMDZjXkEyXkFqcGdeQXVyNTE1MDE2MzY@._V1_SX300.jpg"
-    },
-    {
-        "Title":"Iron Man",
-        "Description":"After being heldcaptive in an Afghan cave, billionaire engineer Tony Stark creates a unique weaponized suit of armor to fight evil.",
-        "Genre":
-            {
-                "Name": "Sci-Fi",
-                "Description": "Descpription sci-fi"
-            },
-        "Director":
-            {
-                "Name": "Jon Favreau",
-                "Bio" : "Bio JF",
-                "Birth": "Birth JF",
-                "Death": ""
-            },
-        "imageURL":"https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg"
-    }    
-];
-*/
