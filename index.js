@@ -17,32 +17,56 @@ app.use(morgan('combined', {stream: accessLogStream}));
 const movies=Models.Movie;
 const users=Models.User;
 
+mongoose.connect('mongodb://localhost:27017/favMovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
 //READ:get full movie list
 app.get('/movies',(req,res)=>{
-    res.json(movies);
+    movies.find()
+    .then((movies)=>{
+        res.status(200).json(movies);
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.status(500).send('Error: ' + err);
+    });
 });
 
 //READ: get data of a single movie
 app.get('/movies/:title', (req, res)=> {
-    const movie = movies.find(movie => movie.Title === req.params.title);
-    if (movie) {
-        res.status(200).json(movie);
-    } else {
-        res.status(400).send('Movie not found.');
-    }
-    
+    movies.findOne({Title: req.params.title})
+    .then((movie)=>{
+        if(movie){
+            res.status(200).json(movie);    
+        } else {
+            res.status(400).send(`Movie "${req.params.title}" not found.`);
+        }
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.status(500).send('Error: ' + err);
+    });
 })
 
 //READ: get data about a genre by name
 app.get('/movies/genres/:genreName', (req, res)=>{
-    const movie = movies.find(movie => movie.Genre.Name === req.params.genreName);
-    if (movie) {
-        const genre=movie.Genre;
-        res.status(200).json(genre);
-    } else {
-        res.status(404).send('Genre not found.');
-    }
-});
+    movies.findOne({"Genre.Name": req.params.genreName})
+    .then((movie)=>{
+        if (movie) {
+            const genre=movie.Genre;
+            res.status(200).json(genre);
+        } else {
+            res.status(404).send('Genre not found.');
+        }
+    })
+    .catch((err)=>{
+        console.log(err);
+        res.status(500).send('Error: ' + err);
+    });
+})
+
+
+
+/*
 
 //READ: get data about a director by name
 app.get('/movies/directors/:name', (req, res)=>{
@@ -126,6 +150,8 @@ app.delete('/users/:id', (req, res)=>{
         res.status(404).send(`User with ID-No. ${id} not found.`);
     }
 });
+*/
+
 
 //serve files in public ordner
 app.use(express.static('public'));
