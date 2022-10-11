@@ -137,7 +137,7 @@ app.post('/users', (req, res) => {
   });
 
 //UPDATE: update a user's info
-app.post('/users/:username', (req, res) => {
+app.put('/users/:username', (req, res) => {
     users.findOneAndUpdate({ Username: req.params.username }, { $set:
       {
         Username: req.body.Username,
@@ -158,7 +158,7 @@ app.post('/users/:username', (req, res) => {
   });
 
 // Add a movie to a user's list of favorites
-app.put('/users/:username/movies/:movieid', (req, res) => {
+app.post('/users/:username/movies/:movieid', (req, res) => {
     users.findOneAndUpdate({ Username: req.params.username }, {
        $addToSet: { FavoriteMovies: req.params.movieid }
      },
