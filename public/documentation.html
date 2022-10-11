@@ -146,14 +146,14 @@
                 <tr>
                     <td>Update a user's information</td>
                     <td>/users/[Username]</td>
-                    <td>POST</td>
+                    <td>PUT</td>
                     <td>A JSON object holding data about the updated user information, containing username, password, email and birthday.</td>
                     <td>A JSON object holding data about the updated user information, containing username, password, email, birthday, id and favoriteMovies list.</td>
                 </tr>
                 <tr>
                     <td>Add a movie to a user's favoriteMovies</td>
                     <td>/users/[Username]/movies/[movieID]</td>
-                    <td>PUT</td>
+                    <td>POST</td>
                     <td>None</td>
                     <td>A JSON object holding data about the updated user, with the added movie in the favoriteMovies list. Example:
                         <div class="example">
