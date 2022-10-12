@@ -143,3 +143,5 @@
 ::1 - - [11/Oct/2022:13:51:00 +0000] "GET /movies/directors/Peter%20Jackson HTTP/1.1" 200 747 "-" "PostmanRuntime/7.29.2"
 ::1 - - [11/Oct/2022:13:51:23 +0000] "GET /movies HTTP/1.1" 200 15570 "-" "PostmanRuntime/7.29.2"
 ::1 - - [11/Oct/2022:13:51:48 +0000] "PUT /users/maxMustermann/movies/63444d31cd27bc1e4fd6701a HTTP/1.1" 200 238 "-" "PostmanRuntime/7.29.2"
+::1 - - [11/Oct/2022:14:38:56 +0000] "GET /movies HTTP/1.1" 200 15570 "-" "PostmanRuntime/7.29.2"
+::1 - - [11/Oct/2022:14:39:02 +0000] "GET /movies/directors/Peter%20Jackson HTTP/1.1" 200 747 "-" "PostmanRuntime/7.29.2"

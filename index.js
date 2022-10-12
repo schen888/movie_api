@@ -81,7 +81,7 @@ app.get('/movies/genres/:genreName', (req, res)=>{
     });
 });
 
-//READ:get full user list
+/*//READ:get full user list
 app.get('/users',(req,res)=>{
     users.find()
     .then((users)=>{
@@ -107,7 +107,7 @@ app.get('/users/:username', (req, res)=> {
         console.log(err);
         res.status(500).send('Error: ' + err);
     });
-})
+})*/
 
 //creat a new user
 app.post('/users', (req, res) => {
