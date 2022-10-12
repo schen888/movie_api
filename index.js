@@ -86,20 +86,9 @@ app.get('/movies/genres/:genreName', passport.authenticate('jwt', {session: fals
     });
 });
 
-/*//READ:get full user list
-app.get('/users',(req,res)=>{
-    users.find()
-    .then((users)=>{
-        res.status(200).json(users);
-    })
-    .catch((err)=>{
-        console.log(err);
-        res.status(500).send('Error: ' + err);
-    });
-});
-
+/*
 //READ: get data of a single user
-app.get('/users/:username', (req, res)=> {
+app.get('/users/:username', passport.authenticate('jwt', {session: false}), (req, res)=> {
     users.findOne({Username: req.params.username})
     .then((user)=>{
         if(user){
