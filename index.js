@@ -8,6 +8,11 @@ const express=require('express'),
 
 const app=express();
 
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -20,7 +25,7 @@ const users=Models.User;
 mongoose.connect('mongodb://localhost:27017/favMovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //READ:get full movie list
-app.get('/movies',(req,res)=>{
+app.get('/movies',passport.authenticate('jwt', {session: false}), (req,res)=>{
     movies.find()
     .then((movies)=>{
         res.status(200).json(movies);
