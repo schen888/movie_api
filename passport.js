@@ -11,7 +11,7 @@ passport.use(new LocalStrategy({
   usernameField: 'Username',
   passwordField: 'Password'
 }, (username, password, callback) => {
-  console.log(username + '  ' + password);
+  console.log(username + '  ' + password);//delete
   Users.findOne({ Username: username }, (error, user) => {
     if (error) {
       console.log(error);
@@ -28,8 +28,8 @@ passport.use(new LocalStrategy({
       return callback(null, false, {message: 'Incorrect password.'});
     }
 
-    console.log('finished');
-    return callback(null, user);
+    console.log('finished');//delete
+    callback(null, user);
   });
 }));
 

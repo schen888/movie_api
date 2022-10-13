@@ -121,7 +121,7 @@ app.get('/users/:username', passport.authenticate('jwt', {session: false}), (req
 
 //creat a new user
 app.post('/users',[
-  check('Username', 'Username is required').isLength({min: 5}),
+  check('Username', 'Username is required with at least 5 alphanumeric characters.').isLength({min: 5}),
   check('Username', 'Username contains non alphanumeric characters - not allowed.').isAlphanumeric(),
   check('Password', 'Password is required').not().isEmpty(),
   check('Email', 'Email does not appear to be valid').isEmail()
@@ -136,7 +136,7 @@ app.post('/users',[
     users.findOne({ Username: req.body.Username })
       .then((user) => {
         if (user) {
-          return res.status(400).send(req.body.Username + 'already exists.');
+          return res.status(400).send(req.body.Username + ' already exists.');
         } else {
           users
             .create({
