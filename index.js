@@ -11,8 +11,10 @@ const express=require('express'),
 const app=express();
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', '#'];
+app.use(cors()); // all origins allowed
 
+//Only certain origins allowed:
+/*let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', '#'];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
@@ -22,7 +24,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));
+}));*/
 
 let auth = require('./auth')(app);
 const passport = require('passport');
