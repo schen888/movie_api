@@ -46,6 +46,12 @@ const users=Models.User;
 //Connect to database
 mongoose.connect('mongodb://localhost:27017/favMovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
+//CURD
+app.get('/', (req,res)=>{
+  res.sendFile(__dirname + '/index.html');  
+});
+
+
 //READ:get full movie list
 app.get('/movies',passport.authenticate('jwt', {session: false}), (req,res)=>{
     movies.find()
