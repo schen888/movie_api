@@ -10,6 +10,7 @@ const express=require('express'),
 
 const app=express();
 
+//CORS
 const cors = require('cors');
 app.use(cors()); // all origins allowed
 
@@ -26,20 +27,23 @@ app.use(cors({
   }
 }));*/
 
-let auth = require('./auth')(app);
+//Authentication
+require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-
+//Bodyparser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Log
 const accessLogStream=fs.createWriteStream(path.join(__dirname, 'log.txt'),{flags:'a'})
 app.use(morgan('combined', {stream: accessLogStream}));
 
 const movies=Models.Movie;
 const users=Models.User;
 
+//Connect to database
 mongoose.connect('mongodb://localhost:27017/favMovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //READ:get full movie list
