@@ -12,5 +12,11 @@ It also allows users to register with an username, password and Email address an
 - Allow users to add a movie to their list of favorites
 - Allow users to remove a movie from their list of favorites
 - Allow existing users to deregister
+- Hash user's password
+- Authenticate user by log in
+- Authenticate user, when user make requests to API
 
+###### Technical Dependencies ######
+- HTML, ES6, Node.js, Express, MongoDB
+- Application is hosted on Heroku and database is hosted on MongoDB Atlas.
 ###### [favMovie API](https://favmovie123.herokuapp.com/) ######
