@@ -43,8 +43,13 @@ app.use(morgan('combined', {stream: accessLogStream}));
 const movies=Models.Movie;
 const users=Models.User;
 
-//Connect to database
-mongoose.connect('mongodb://localhost:27017/favMovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
+//Connect to local database
+//mongoose.connect('mongodb://localhost:27017/favMovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
+//connect to online database
+mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true });
+
+
 
 //CURD
 app.get('/', (req,res)=>{
