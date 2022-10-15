@@ -46,8 +46,8 @@ const users=Models.User;
 //Connect to local database
 //mongoose.connect('mongodb://localhost:27017/favMovieDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
-//connect to online database
-mongoose.connect('', { useNewUrlParser: true, useUnifiedTopology: true });
+//connect to online database. CONNECTION_URI is the name of the env. var. on heroku. 
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 
 
