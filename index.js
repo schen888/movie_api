@@ -119,7 +119,7 @@ app.get('/movies/genres/:genreName', passport.authenticate('jwt', {session: fals
     });
 });
 
-/*
+
 //READ: get data of a single user
 app.get('/users/:username', passport.authenticate('jwt', {session: false}), (req, res)=> {
     users.findOne({Username: req.params.username})
@@ -134,7 +134,7 @@ app.get('/users/:username', passport.authenticate('jwt', {session: false}), (req
         console.log(err);
         res.status(500).send('Error: ' + err);
     });
-})*/
+});
 
 //creat a new user
 app.post('/users',[
