@@ -33,11 +33,11 @@ const passport = require('passport');
 require('./passport');
 
 //Bodyparser
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Log
-const accessLogStream=fs.createWriteStream(path.join(__dirname, 'log.txt'),{flags:'a'})
+const accessLogStream=fs.createWriteStream(path.join(__dirname, 'log.txt'),{flags:'a'}) 
 app.use(morgan('combined', {stream: accessLogStream}));
 
 const movies=Models.Movie;
@@ -260,10 +260,15 @@ app.use(express.static('public'));
 
 app.use((err,req,res,next)=>{
     console.log(err.stack);
-    res.status(500).send('Upps, something went wrong...');
+    res.status(500).send('Upps, something went wrong...'); 
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
+app.listen(port, '0.0.0.0',() => {                       
  console.log('Listening on Port ' + port);
 });
+
+//localhost port
+/* app.listen(8080, () => {
+  console.log('Your app is listening on port 8080.');
+}); */
