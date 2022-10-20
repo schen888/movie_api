@@ -58,7 +58,8 @@ app.get('/', (req,res)=>{
 
 
 //READ:get full movie list
-app.get('/movies',passport.authenticate('jwt', {session: false}), (req,res)=>{
+//passport.authenticate('jwt', {session: false}), for the React app take out the authentication temporarily. 
+app.get('/movies', (req,res)=>{
     movies.find()
     .then((movies)=>{
         res.status(200).json(movies);
