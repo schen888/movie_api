@@ -10,6 +10,10 @@ const express=require('express'),
 
 const app=express();
 
+//Bodyparser
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //CORS
 const cors = require('cors');
 app.use(cors()); // all origins allowed
@@ -27,20 +31,6 @@ app.use(cors({
   }
 }));*/
 
-//Bodyparser
-app.use(bodyParser.json()); 
-app.use(bodyParser.urlencoded({ extended: true }));
-
-//Authentication
-require('./auth')(app);
-const passport = require('passport');
-require('./passport');
-
-
-//Log
-const accessLogStream=fs.createWriteStream(path.join(__dirname, 'log.txt'),{flags:'a'}) 
-app.use(morgan('combined', {stream: accessLogStream}));
-
 const movies=Models.Movie;
 const users=Models.User;
 
@@ -50,6 +40,15 @@ const users=Models.User;
 //connect to online database. CONNECTION_URI is the name of the env. var. on heroku. 
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+
+//Authentication
+require('./auth')(app);
+const passport = require('passport');
+require('./passport');
+
+//Log
+const accessLogStream=fs.createWriteStream(path.join(__dirname, 'log.txt'),{flags:'a'}) 
+app.use(morgan('combined', {stream: accessLogStream}));
 
 
 //CURD
