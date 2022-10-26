@@ -27,14 +27,15 @@ app.use(cors({
   }
 }));*/
 
+//Bodyparser
+app.use(bodyParser.json()); 
+app.use(bodyParser.urlencoded({ extended: true }));
+
 //Authentication
 require('./auth')(app);
 const passport = require('passport');
 require('./passport');
 
-//Bodyparser
-app.use(bodyParser.json()); 
-app.use(bodyParser.urlencoded({ extended: true }));
 
 //Log
 const accessLogStream=fs.createWriteStream(path.join(__dirname, 'log.txt'),{flags:'a'}) 
