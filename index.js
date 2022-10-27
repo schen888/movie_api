@@ -16,10 +16,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //CORS
 const cors = require('cors');
-app.use(cors()); // all origins allowed
 
-//Only certain origins allowed:
-/*let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', '#'];
+// allow all origins
+/* app.use(cors());  */
+
+//Only certain origins allowed: (let allowedOrigins = ['http://localhost:1234', '#'];)
+let allowedOrigins = ['http://localhost:1234'];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
@@ -29,7 +31,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));*/
+}));
 
 const movies=Models.Movie;
 const users=Models.User;
@@ -59,7 +61,7 @@ app.get('/', (req,res)=>{
 
 //READ:get full movie list
 //passport.authenticate('jwt', {session: false}), for the React app take out the authentication temporarily. 
-app.get('/movies', (req,res)=>{
+app.get('/movies', passport.authenticate('jwt', {session: false}), (req,res)=>{
     movies.find()
     .then((movies)=>{
         res.status(200).json(movies);
