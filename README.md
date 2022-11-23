@@ -19,4 +19,4 @@ It also allows users to register with an username, password and Email address an
 ###### Technical Dependencies ######
 - HTML, ES6, Node.js, Express, MongoDB
 - Application is hosted on Heroku and database is hosted on MongoDB Atlas.
-###### [favMovie API](https://favmovie123.herokuapp.com/) ######
+###### [favMovie API](https://favmovie-schen.herokuapp.com/) ######
