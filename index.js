@@ -21,7 +21,12 @@ const cors = require('cors');
 /* app.use(cors());  */
 
 //Only certain origins allowed: (let allowedOrigins = ['http://localhost:1234', '#'];)
-let allowedOrigins = ['http://localhost:1234', 'https://favmovie-schen.netlify.app'];
+let allowedOrigins = [
+  'http://localhost:1234',
+  'http://localhost:4200',
+  'https://favmovie-schen.netlify.app',
+  'https://schen888.github.io/favMovie-Angular-client/'
+];
 app.use(cors({
   origin: (origin, callback) => {
     if(!origin) return callback(null, true);
