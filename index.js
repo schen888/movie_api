@@ -25,7 +25,7 @@ let allowedOrigins = [
   'http://localhost:1234',
   'http://localhost:4200',
   'https://favmovie-schen.netlify.app',
-  'https://schen888.github.io/favMovie-Angular-client/'
+  'https://schen888.github.io'
 ];
 app.use(cors({
   origin: (origin, callback) => {
