@@ -2,6 +2,9 @@
 This is a movie API, which contains information about movie's title, description, genre, director, imageURL and whether it is featured or not. For genre, the genre's name and a short description about the genre are included. For director, his or her name, bio, birth year and death year are included.
 It also allows users to register with an username, password and Email address and to log in with username and password. Users can add/delete movies to their favorite movies list. They can also delete their user information.
 
+###### Deployed API on Heroku
+[favMovie API](https://favmovie-schen.herokuapp.com/)
+
 ###### Key Features ######
 - Return a list of ALL movies to the user
 - Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
@@ -19,4 +22,3 @@ It also allows users to register with an username, password and Email address an
 ###### Technical Dependencies ######
 - HTML, ES6, Node.js, Express, MongoDB
 - Application is hosted on Heroku and database is hosted on MongoDB Atlas.
-###### [favMovie API](https://favmovie-schen.herokuapp.com/) ######
