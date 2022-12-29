@@ -145,6 +145,51 @@
                     </td>
                 </tr>
                 <tr>
+                    <td>Login a registered user</td>
+                    <td>/login</td>
+                    <td>POST</td>
+                    <td>A JSON object holding the users login data. Example:
+                        <div class="example">
+                            {
+                                "Username": "maxMustermann",
+                                "Password": "12345password"
+                            }
+                        </div>
+                    </td>
+                    <td>A JSON object holding data about the new user, containing username, password, email, birthday, id and FavoriteMovies list.
+                        <div class="example">
+                            {
+                                "Username": "maxMustermann",
+                                "Password": "12345password",
+                                "Email": "maxmustermann@web.de",
+                                "Birthday": "2001-01-01T00:00:00.000Z",
+                                "FavoriteMovies": [],
+                                "_id": "63455a8bb31fbde8bc7d404d",
+                                "__v": 0
+                            }
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Get data about one single user</td>
+                    <td>/users/[Username]</td>
+                    <td>GET</td>
+                    <td>None</td>
+                    <td>A JSON object holding data about the particular user, containing username, password, email, birthday, id and FavoriteMovies list.
+                        <div class="example">
+                            {
+                                "Username": "maxMustermann",
+                                "Password": "12345password",
+                                "Email": "maxmustermann@web.de",
+                                "Birthday": "2001-01-01T00:00:00.000Z",
+                                "FavoriteMovies": [],
+                                "_id": "63455a8bb31fbde8bc7d404d",
+                                "__v": 0
+                            }
+                        </div>
+                    </td>
+                </tr>
+                <tr>
                     <td>Update a user's information</td>
                     <td>/users/[Username]</td>
                     <td>PUT</td>
